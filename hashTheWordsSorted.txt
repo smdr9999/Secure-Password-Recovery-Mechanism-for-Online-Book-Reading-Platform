@@ -1,1 +1,2 @@
-//Add hashes and corresponding plaintexts in sorted manner
+//This is the file created after executing codes in Create Folder
+//It consists of sorted hash values and their corresponding plain texts
