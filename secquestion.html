@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Security Questions</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.label {
+    display: block;
+    font-weight: bold;
+}
+
+.input-field {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.add-answer {
+    display: none;
+}
+
+.custom-question-input {
+    margin-bottom: 10px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Security Questions</h2>
+    <form id="securityQuestionsForm" action="secquestion.php" method="POST">
+        <div class="form-group">
+            <label class="label">Select a Security Question:</label>
+            <select class="input-field" id="securityQuestion" name="question" required>
+                <option value="">-- Select a Security Question --</option>
+                <option value="What is your pet's name?">What is your pet's name?</option>
+                <option value="What is your school's name?">What is your school's name?</option>
+                <option value="What is your birth date?">What is your birth date?</option>
+                <option value="Who is your best friend?">Who is your best friend?</option>
+                <option value="custom">Custom Question (Write your own question)</option>
+            </select>
+        </div>
+        <div class="form-group add-custom-question" style="display: none;">
+            <label class="label">Custom Question:</label>
+            <input type="text" id="customQuestion" name="custom_question" class="input-field custom-question-input">
+        </div>
+        <input type="hidden" id="selectedQuestion" name="selected_question">
+        <div class="form-group add-answer">
+            <label class="label">Answer:</label>
+            <input type="text" id="answer" name="answer" class="input-field">
+        </div>
+        <button type="button" id="addAnswerBtn" class="btn" disabled>Add Answer</button>
+        <button type="submit" class="btn">Submit</button>
+    </form>
+</div>
+
+<script>
+document.getElementById('securityQuestion').addEventListener('change', function() {
+    let customQuestionDiv = document.querySelector('.add-custom-question');
+    let addAnswerBtn = document.getElementById('addAnswerBtn');
+    
+    if (this.value === 'custom') {
+        customQuestionDiv.style.display = 'block';
+        addAnswerBtn.disabled = true;
+    } else {
+        customQuestionDiv.style.display = 'none';
+        addAnswerBtn.disabled = false;
+    }
+});
+
+document.getElementById('customQuestion').addEventListener('input', function() {
+    let addAnswerBtn = document.getElementById('addAnswerBtn');
+    addAnswerBtn.disabled = this.value.trim() === '';
+});
+
+document.getElementById('addAnswerBtn').addEventListener('click', function() {
+    let selectedQuestion = document.getElementById('selectedQuestion').value;
+    let selectedAnswer = document.getElementById('answer').value;
+    console.log('Selected Question:', selectedQuestion);
+    console.log('Selected Answer:', selectedAnswer);
+    document.querySelector('.add-answer').style.display = 'block';
+});
+</script>
+
+</body>
+</html>
